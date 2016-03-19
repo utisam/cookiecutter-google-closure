@@ -1,0 +1,25 @@
+{namespace {{cookiecutter.package_name|lower}}.page.common}
+
+/**
+ * Says hello to the world.
+ */
+{template .base private="true"}
+	{@param title: string}
+	{@param? exthead: string}
+	{@param body: string}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>{$title}</title>
+	<link rel="stylesheet" href="css/normalize.css">
+	<link rel="stylesheet" href="css/base.css">
+	{$exthead}
+</head>
+<body>
+	{$body}
+</body>
+</html>
+{/template}
+

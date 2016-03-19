@@ -1,0 +1,40 @@
+{namespace {{cookiecutter.package_name|lower}}.page}
+
+/**
+ * Says hello to the world.
+ */
+{template .index}
+{call {{cookiecutter.package_name|lower}}.page.common.base}
+	{param title: 'Title' /}
+	{param exthead kind="html"}
+
+<link rel="stylesheet" href="css/index.css">
+<script src="js/{{cookiecutter.package_name|lower}}/entrypoint/index.js"></script>
+
+	{/param}
+	{param body kind="html"}
+
+<header id="global-header" class="{css global-header}">
+	<div class="{css container}">
+		<h1>Hello, world!</h1>
+	</div>
+</header>
+
+<main id="main" class="{css container}">
+	<section class="{css sample-form} {css card}">
+		<h2>Sample Form</h2>
+		<div class="{css sample-form-content}">
+			<p>
+				<label for="message">Message</label>
+				<input type="text" class="{css form-control} {css message-input}">
+			</p>
+			<button class="{css btn} {css submit-button}">Submit</button>
+		</div>
+	</section>
+	<section id="result-section"></section>
+</main>
+
+	{/param}
+{/call}
+{/template}
+
