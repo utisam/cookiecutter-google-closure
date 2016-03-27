@@ -3,9 +3,9 @@ goog.provide('{{cookiecutter.package_name|lower}}.entrypoint.index.main');
 goog.require('goog.dom');
 goog.require('goog.events');
 goog.require('goog.events.EventType');
-goog.require('goog.soy');
 goog.require('{{cookiecutter.package_name|lower}}.ui.SampleForm');
-goog.require('{{cookiecutter.package_name|lower}}.parts');
+goog.require('{{cookiecutter.package_name|lower}}.ui.Message');
+
 
 {{cookiecutter.package_name|lower}}.entrypoint.index.main = function() {
 
@@ -17,12 +17,8 @@ goog.require('{{cookiecutter.package_name|lower}}.parts');
   sampleForm.listen(
       goog.events.EventType.SUBMIT,
       function(event) {
-        goog.dom.appendChild(
-            $resultSection,
-            goog.soy.renderAsElement(
-                {{cookiecutter.package_name|lower}}.parts.mssage,
-                { msg: event.message }
-        ));
+        var message = new {{cookiecutter.package_name|lower}}.ui.Message(event.message);
+        message.render($resultSection);
       }
   );
 };
