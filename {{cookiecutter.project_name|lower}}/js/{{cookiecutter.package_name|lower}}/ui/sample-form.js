@@ -26,84 +26,88 @@ goog.require('goog.ui.Component');
 goog.inherits({{cookiecutter.package_name|lower}}.ui.SampleForm, goog.ui.Component);
 
 
-/**
- * @enum {string}
- */
-{{cookiecutter.package_name|lower}}.ui.SampleForm.CSS_CLASS = {
-  MESSAGE_INPUT: goog.getCssName('message-input'),
-  SUBMIT_BUTTON: goog.getCssName('submit-button'),
-};
+goog.scope(function() {
+  var SampleForm = {{cookiecutter.package_name|lower}}.ui.SampleForm;
+
+  /**
+   * @enum {string}
+   */
+  SampleForm.CSS_CLASSES = {
+    MESSAGE_INPUT: goog.getCssName('message-input'),
+    SUBMIT_BUTTON: goog.getCssName('submit-button'),
+  };
 
 
-/** @override */
-{{cookiecutter.package_name|lower}}.ui.SampleForm.prototype.decorateInternal = function(element) {
-  goog.base(this, 'decorateInternal', element);
+  /** @override */
+  SampleForm.prototype.decorateInternal = function(element) {
+    goog.base(this, 'decorateInternal', element);
 
-  this.$messageText_ = this.findMessageText_(element);
-  this.$submitButton_ = this.findSubmitButton_(element);
-};
+    this.$messageText_ = this.findMessageText_(element);
+    this.$submitButton_ = this.findSubmitButton_(element);
+  };
 
-/**
- * @param {Element} element
- * @return {Element}
- * @private
- */
-{{cookiecutter.package_name|lower}}.ui.SampleForm.prototype.findMessageText_ = function(element) {
-  return this.getDomHelper().getElementByClass(
-      {{cookiecutter.package_name|lower}}.ui.SampleForm.CSS_CLASS.MESSAGE_INPUT,
-      element
-  );
-};
-
-
-/**
- * @param {Element} element
- * @return {Element}
- * @private
- */
-{{cookiecutter.package_name|lower}}.ui.SampleForm.prototype.findSubmitButton_ = function(element) {
-  return this.getDomHelper().getElementByClass(
-      {{cookiecutter.package_name|lower}}.ui.SampleForm.CSS_CLASS.SUBMIT_BUTTON,
-      element
-  );
-};
-
-/** @override */
-{{cookiecutter.package_name|lower}}.ui.SampleForm.prototype.enterDocument = function() {
-  goog.base(this, 'enterDocument');
-
-  goog.events.listen(
-      this.$submitButton_,
-      goog.events.EventType.CLICK,
-      this.onSubmit_,
-      false,
-      this
-  );
-};
+  /**
+   * @param {Element} element
+   * @return {Element}
+   * @private
+   */
+  SampleForm.prototype.findMessageText_ = function(element) {
+    return this.getDomHelper().getElementByClass(
+        SampleForm.CSS_CLASSES.MESSAGE_INPUT,
+        element
+    );
+  };
 
 
-/**
- * @param {Event} event
- */
-{{cookiecutter.package_name|lower}}.ui.SampleForm.prototype.onSubmit_ = function(event) {
-  var messageText = this.$messageText_.value;
+  /**
+   * @param {Element} element
+   * @return {Element}
+   * @private
+   */
+  SampleForm.prototype.findSubmitButton_ = function(element) {
+    return this.getDomHelper().getElementByClass(
+        SampleForm.CSS_CLASSES.SUBMIT_BUTTON,
+        element
+    );
+  };
 
-  if (!messageText) {
-    return;
-  }
+  /** @override */
+  SampleForm.prototype.enterDocument = function() {
+    goog.base(this, 'enterDocument');
 
-  this.dispatchEvent({
-      message: messageText,
-      type: goog.events.EventType.SUBMIT,
-  });
-};
+    goog.events.listen(
+        this.$submitButton_,
+        goog.events.EventType.CLICK,
+        this.onSubmit_,
+        false,
+        this
+    );
+  };
 
 
-/** @override */
-{{cookiecutter.package_name|lower}}.ui.SampleForm.prototype.disposeInternal = function() {
-  goog.base(this, 'disposeInternal');
+  /**
+   * @param {Event} event
+   */
+  SampleForm.prototype.onSubmit_ = function(event) {
+    var messageText = this.$messageText_.value;
 
-  this.$messageText_ = null;
-  this.$submitButton_ = null;
-};
+    if (!messageText) {
+      return;
+    }
 
+    this.dispatchEvent({
+        message: messageText,
+        type: goog.events.EventType.SUBMIT,
+    });
+  };
+
+
+  /** @override */
+  SampleForm.prototype.disposeInternal = function() {
+    goog.base(this, 'disposeInternal');
+
+    this.$messageText_ = null;
+    this.$submitButton_ = null;
+  };
+
+});
