@@ -2,6 +2,9 @@ comma:= ,
 empty:=
 space:= $(empty) $(empty)
 
+# Sometimes, use `gsed` if you use Mac OS X
+GNU_SED=sed
+
 TARGET_DIR = dist
 INTERMEDIATE_DIR = inter
 PROJECT_NAMESPACE = {{cookiecutter.package_name|lower}}
@@ -66,9 +69,9 @@ $(CSS_TARGET_DIR)/%.css: $(LESS_DIR)/%.less
 	# generate dependencies
 	lessc -M $< $@ > $(CSS_TARGET_DIR)/$*.d
 	# add rules to ignore missing prerequisites
-	sed -e 's/^[^:]*: *//' < $(CSS_TARGET_DIR)/$*.d | \
+	$(GNU_SED) -e 's/^[^:]*: *//' < $(CSS_TARGET_DIR)/$*.d | \
 		tr -s ' ' '\n' | \
-		sed -e 's/.\+/\0:/g' \
+		$(GNU_SED) -e 's/.\+/\0:/g' \
 		>> $(CSS_TARGET_DIR)/$*.d
 
 $(NORMALIZE_CSS_TARGET): $(NORMALIZE_CSS_SOURCE)
@@ -135,7 +138,7 @@ $(JS_TARGET_DIR)/%.js: $(CLOSURE_DIR)/%.js $(SOY_TARGET)
 		| grep -v '^node_modules' \
 		| tr '\n' ' ' \
 		> $(JS_TARGET_DIR)/$*.d
-	sed -i'' -e 's!^!$@: !g' $(JS_TARGET_DIR)/$*.d
+	$(GNU_SED) -i'' -e 's!^!$@: !g' $(JS_TARGET_DIR)/$*.d
 
 -include $(CLOSURE_TARGETS:.js=.d)
 
