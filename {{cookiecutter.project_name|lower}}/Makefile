@@ -101,7 +101,6 @@ SOY_TO_JS_COMPILER = $(NODE_DIR)/google-closure-templates/javascript/SoyToJsSrcC
 js: $(CLOSURE_TARGETS)
 	echo "[Finished] $@"
 
-#  closurebuilder.py | grep -v '^node_modules' | tr '\n' ' '
 $(JS_TARGET_DIR)/%.js: $(CLOSURE_DIR)/%.js $(SOY_TARGET)
 	eslint $<
 	-mkdir -p $(dir $@)
@@ -110,7 +109,8 @@ $(JS_TARGET_DIR)/%.js: $(CLOSURE_DIR)/%.js $(SOY_TARGET)
 		--js "$(CLOSURE_DIR)/**.js" \
 		--js "$(NODE_DIR)/google-closure-templates/javascript/soyutils_usegoog.js" \
 		--js "$(SOY_TARGET)" \
-		--language_in ECMASCRIPT5 \
+		--language_in ECMASCRIPT6_STRICT \
+		--language_out ECMASCRIPT5_STRICT \
 		--compilation_level $(CLOSURE_COMPILATION_LEVEL) \
 		--dependency_mode=STRICT \
 		--jscomp_error=checkEventfulObjectDisposal \
@@ -125,6 +125,8 @@ $(JS_TARGET_DIR)/%.js: $(CLOSURE_DIR)/%.js $(SOY_TARGET)
 		--jscomp_error=missingReturn \
 		--jscomp_error=missingRequire \
 		--jscomp_error=visibility \
+		--define 'goog.DEBUG=false' \
+		--define 'goog.log.ENABLED=false' \
 		--entry_point="goog:$(subst /,.,$*).main" \
 		> $@
 	# generate dependencies
