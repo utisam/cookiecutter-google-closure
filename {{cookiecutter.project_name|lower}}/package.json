@@ -1,21 +1,16 @@
 {
-  "name": "name",
+  "name": "{{cookiecutter.project_name}}",
   "version": "0.0.0",
-  "description": "desc",
+  "description": "{{cookiecutter.description}}",
   "private": true,
   "dependencies": {
-    "google-closure-compiler": "~20160208.1.0",
-    "google-closure-library": "~20160218.0.2",
-    "google-closure-templates": "~20150410.0.0",
-    "normalize.css": "~3.0.3"
+    "google-closure-compiler": "~20160619.0.0",
+    "google-closure-templates": "~20150410.0.0"
   },
   "eslintConfig": {
     "env": {
-      "browser": true
-    },
-    "globals": {
-      "goog": true,
-      "{{cookiecutter.package_name|lower}}": true
+      "browser": true,
+      "es6": true
     },
     "rules": {
       "comma-dangle": [2, "always-multiline"],
@@ -25,6 +20,7 @@
       "no-implicit-coercion": 2,
       "no-multi-spaces": 2,
       "no-console": 0,
+      "no-unused-vars": ["error", { "vars": "local" }],
       "indent": [2, 2],
       "semi": [2, "always"],
       "complexity": 1

@@ -1,0 +1,1 @@
+WALTER_UI_BASE_URL = '/walter-ui'

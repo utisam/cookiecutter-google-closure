@@ -1,9 +1,12 @@
+var File = Java.type('java.io.File');
 var SoyFileSet = Java.type('com.google.template.soy.SoyFileSet');
 var SoyTofu = Java.type('com.google.template.soy.tofu.SoyTofu');
-var File = Java.type('java.io.File');
 
 var sfsBuilder = SoyFileSet.builder();
-for (var i = 1; i < arguments.length; ++i) {
+
+sfsBuilder.setCompileTimeGlobals(new File(arguments[1]));
+
+for (var i = 2; i < arguments.length; ++i) {
 	sfsBuilder.add(new File(arguments[i]));
 }
 
